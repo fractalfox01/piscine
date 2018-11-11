@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../includes/test_header.h"
+#include "../includes/headers.h"
 
 void    deconstruct(char *str)
 {
@@ -15,7 +15,7 @@ void    deconstruct(char *str)
 	{
 		if (str[i] > 47 && str[i] < 58)
 		{
-			full[a] = ft_atoi(str, i);
+			full[a] = ft_sudo_atoi(str, i);
 			while (str[i] > 47 && str[i] < 58)
 			{
 				i++;
