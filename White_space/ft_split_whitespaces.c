@@ -6,12 +6,29 @@
 /*   By: tvandivi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 08:35:31 by tvandivi          #+#    #+#             */
-/*   Updated: 2018/11/13 14:22:32 by tvandivi         ###   ########.fr       */
+/*   Updated: 2018/11/14 15:11:59 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <unistd.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putstr(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+}
 
 int		total_len(char *str)
 {
@@ -40,7 +57,7 @@ char	*get_word(char *str, int start)
 		start++;
 		i++;
 	}
-	word = (char *)malloc(sizeof(char) * (i + 1));
+	word = (char *)malloc(sizeof(char*) * (i + 1));
 	while (a < i)
 	{
 		word[a] = str[b];
@@ -62,7 +79,7 @@ char **ft_split_whitespaces(char *str)
 	i = 0;
 	a = 0;
 	len = total_len(str);
-	ret = (char **)malloc(sizeof(char) * (len + 1));
+	ret = (char **)malloc(sizeof(char*) * (len + 1));
 	while (i < len)
 	{
 		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\r')
@@ -71,6 +88,7 @@ char **ft_split_whitespaces(char *str)
 		i += total_len(ret[a]);
 		a++;
 	}
+	ret[a] = NULL;
 	return (ret);
 }
 
@@ -83,12 +101,13 @@ int		main(int argc, char **argv)
 	if (argc > 1)
 	{
 		ret = ft_split_whitespaces(argv[1]);
-		while (ret[i] != NULL)
+		while (ret[i])
 		{
-			printf("word: %s\n", ret[i]);
+			ft_putstr(ret[i]);
+			ft_putchar('\n');
 			i++;
 		}
+		free(ret);
 	}
-	free(ret);
 	return (0);
 }
