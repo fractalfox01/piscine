@@ -6,7 +6,7 @@
 /*   By: tvandivi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 08:35:31 by tvandivi          #+#    #+#             */
-/*   Updated: 2018/11/12 23:39:09 by tvandivi         ###   ########.fr       */
+/*   Updated: 2018/11/13 14:22:32 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,98 +15,60 @@
 
 int		total_len(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	printf("total_len\n");
-	return (i);
-}
-
-int		alloc_space(char *str)
-{
 	int i;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == ' ' || str[i] == '\t' || str[i] == '\r' )
-		{
-			i++;
-			continue ;
-		}
 		i++;
 	}
-	printf("alloc_space\n");
 	return (i);
-}
-
-int		skipper(char *str, int next)
-{
-	while (str[next] == ' ' && str[next] != '\0')
-	{
-		next++;
-	}
-	printf("skipper: %d\n", next);
-	return (next);
 }
 
 char	*get_word(char *str, int start)
 {
-	int 	i;
-	int		restart;
-	char	*word;
-
-	i = 0;
-	restart = start;
-	while (str[start] != '\0')
-	{
-		if (str[start] == ' ')
-			break ;
-		start++;
-	}
-	word = (char *)malloc(sizeof(char) * (start + 1));
-	while (i < start)
-	{
-		word[i] = str[restart];
-		i++;
-		restart++;
-	}
-	printf("get_word\n");
-	word[i] = '\0';
-	return (word);
-}
-
-int		word_len(char *str)
-{
 	int i;
-	
+	int a;
+	int b;
+	char *word;
+
 	i = 0;
-	while (str[i] != '\0')
+	a = 0;
+	b = start;
+	while (str[start] != ' ' && str[start] != '\t' && str[start] != '\r' && str[start] != '\0')
 	{
+		start++;
 		i++;
 	}
-	return (i);
+	word = (char *)malloc(sizeof(char) * (i + 1));
+	while (a < i)
+	{
+		word[a] = str[b];
+		a++;
+		b++;
+	}
+	word[a] = '\0';
+	return (word);
 }
 
 char **ft_split_whitespaces(char *str)
 {
-	int i;
-	int a;
-	int len;
-	char **ret;
-	
+	int		i;
+	int		a;
+	int 	len;
+	char 	**ret;
+	char	*end;
+
+	i = 0;
 	a = 0;
 	len = total_len(str);
-	ret = (char **)malloc(sizeof(char) * (alloc_space(str) + 1));
-	i = skipper(str, 0);
+	ret = (char **)malloc(sizeof(char) * (len + 1));
 	while (i < len)
 	{
-		printf("i: %d\n", i);
+		while (str[i] == ' ' || str[i] == '\t' || str[i] == '\r')
+			i++;
 		ret[a] = get_word(str, i);
-		//i += skipper(str, i);
-		i += word_len(ret[a]);
+		i += total_len(ret[a]);
 		a++;
 	}
 	return (ret);
@@ -116,7 +78,7 @@ int		main(int argc, char **argv)
 {
 	int	i;
 	char	**ret;
-
+	
 	i = 0;
 	if (argc > 1)
 	{
@@ -127,5 +89,6 @@ int		main(int argc, char **argv)
 			i++;
 		}
 	}
+	free(ret);
 	return (0);
 }
