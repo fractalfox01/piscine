@@ -1,40 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maff_alpha.c                                       :+:      :+:    :+:   */
+/*   power_of_two.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tvandivi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/14 15:37:00 by tvandivi          #+#    #+#             */
-/*   Updated: 2018/11/14 16:09:28 by tvandivi         ###   ########.fr       */
+/*   Created: 2018/11/14 17:31:47 by tvandivi          #+#    #+#             */
+/*   Updated: 2018/11/14 18:04:02 by tvandivi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdio.h>
 
-void	ft_putchar(char c)
+int		psudo_atoi(char *str)
 {
-	write(1, &c, 1);
-}
-
-void	maff_alpha()
-{
-	int	i;
+	int i;
+	int fin;
 
 	i = 0;
-	while (i < 26)
+	fin = 0;
+	while (str[i] != '\0')
 	{
-		if ((i % 2) == 1)
-			ft_putchar(i + 65);
-		else
-			ft_putchar(i + 97);
+		fin = fin * 10 + str[i] - 48;
 		i++;
 	}
-	ft_putchar('\n');
+	return (fin);
 }
 
-int		main(void)
+int	ft_power_of(unsigned int nbr)
 {
-	maff_alpha();
+	int i;
+	int ans;
+
+	i = 0;
+	ans = nbr;
+	while (i < (ans / 2))
+	{
+		if ((i * i) == nbr)
+		{
+			return (i);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	if (argc > 1)
+	{
+		printf("answer: %d\n", ft_power_of(psudo_atoi(argv[1])));
+	}
+	else
+		printf("No Input.\n");
 	return (0);
 }
