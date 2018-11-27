@@ -1,8 +1,15 @@
 #include <unistd.h>
+#include <stdio.h>
 
 void    ft_putchar(char c)
 {
         write(1, &c, 1);
+}
+
+void	ft_putstr(char *str)
+{
+	while (*str != '\0')
+		ft_putchar(*str++);
 }
 
 void    to_base(int nbr, int base)
@@ -15,9 +22,13 @@ void    to_base(int nbr, int base)
         {
                 to_base((nbr / base), base);
         }
-	if ((nbr % base) > 9)
+	if ((nbr % base) > 9 && (nbr % base) < 36)
 	{
 		ft_putchar((nbr % base) + 55);
+	}
+	else if ((nbr % base) > 35 && (nbr % base) < 64)
+	{
+		ft_putchar((nbr % base) + 61);
 	}
 	else
 	{
@@ -41,7 +52,7 @@ int     main(int argc, char **argv)
 {
 	if (argc == 1)
 	{
-		to_base(42, 10);
+		to_base(42, 32);
 	}
 	if (argc == 3)
 	{
