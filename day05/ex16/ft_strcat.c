@@ -13,25 +13,19 @@ int	ft_strlen(char *str)
 char	*ft_strcat(char *dest, char *src)
 {
 	int i;
-	int a;
-	char n_str[(ft_strlen(dest) + ft_strlen(src)) - 1];
 	char *ptr;
 
 	i = 0;
-	a = 0;
-	while (dest[i] != '\0')
+	ptr = dest;
+	while (*dest)
 	{
-		n_str[i] = dest[i];
-		i++;
+		dest++;
 	}
-	while (src[a] != '\0')
+	while (*src)
 	{
-		n_str[i] = src[a];
-		i++;
-		a++;
+		*dest = *src;
+		dest++;
+		src++;
 	}
-	n_str[i] = '\0';
-
-	ptr = n_str;
 	return (ptr);
 }
